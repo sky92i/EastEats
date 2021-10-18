@@ -8,3 +8,6 @@ First build the app image
 
 Run the project with docker compose
 ´ docker-compose up ´
+
+Access the API from localhost at port 9990
+´ curl localhost:9990 ´

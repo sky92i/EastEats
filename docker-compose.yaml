@@ -12,8 +12,8 @@ services:
       - mongo_volume:/data/db
   webapp:
     image: webapp
-    env_file:
-      - .env
+    ports:
+      - "9990:15000"
 networks:
   default:
     name: ee_network
