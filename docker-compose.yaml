@@ -12,6 +12,11 @@ services:
       - mongo_volume:/data/db
   webapp:
     image: webapp
+    environment:
+      MONGO_USERNAME: comp3122
+      MONGO_PASSWORD: 12345
+      MONGO_SERVER_HOST: mongo
+      MONGO_DATABASE: admin
     ports:
       - "9990:15000"
 networks:
