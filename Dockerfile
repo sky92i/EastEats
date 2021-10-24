@@ -1,13 +1,13 @@
 FROM python:3
 
-WORKDIR /usr/src/EasyEats
+# Set the working directory to /EasyEats in the container
+WORKDIR /EasyEats
 
-# download dependencies
-COPY requirements.txt ./
+# Copy the current directory contents into the container at /EasyEats
+COPY . /EasyEats
 
 #install dependencies
 RUN python3 -m pip install --user --no-cache-dir -r requirements.txt
 
-COPY . .
-
+# Run app.py when the container launches
 CMD ["python","app.py"]
