@@ -11,7 +11,7 @@ services:
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
       - mongo_volume:/data/db
   webapp:
-    image: webapp
+    build: ./app
     environment:
       MONGO_USERNAME: comp3122
       MONGO_PASSWORD: 12345
