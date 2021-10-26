@@ -15,9 +15,43 @@ except Exception as e: # print error and exit
     if e.code == 18: print ("[x] Database authentication failed.")
     print ("Error details: ", e.details)
 
+db = client["EasyEats"]
+
+def remove_id(data):
+    data.pop('_id')
+    return data
+
 @app.route('/')
 def home():
     return f"Hello world!"
+
+@app.route('/order/<order_id>', methods=['GET'])
+def get_order_details(order_id):
+    data = [remove_id(i) for i in db.order.find({"order_id":order_id})]
+    if data:
+        return jsonify(data), 200
+    else:
+        return jsonify({"error":"not found"}), 404
+
+@app.route('/orders/<order_id>/accept_pos_order', methods={'POST'})
+def accept_order(order_id):
+    #TODO
+    return 204
+
+@app.route('/orders/<order_id>/deny_pos_order', methods=['POST'])
+def deny_order(order_id):
+    #TODO
+    return 204
+
+@app.route('/orders/<order_id>/cancel', methods=['POST'])
+def cancel_order(order_id):
+    #TODO
+    return 200
+
+@app.route('/orders/<order_id>/restaurantdelivery/status', methods=['POST'])
+def update_delivery_status(order_id):
+    #TODO
+    return 204
 
 #start flask server
 if __name__ == '__main__':
