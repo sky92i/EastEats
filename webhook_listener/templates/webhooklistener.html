@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Webhook listener Testing</title>
+</head>
+<body>
+    <div class="content">
+        <div id="Messages" class="content" style="height:200px;width:100%; border:1px solid gray; overflow-y:scroll;"></div>
+    </div>
+    <script src="{{ url_for('static',filename='js/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/socket.io.js') }}"></script>
+<script>
+      $(document).ready(function(){
+        //Reserved for websocket manipulation
+        var namespace='/receivehooks';
+        var url = 'http://' + document.domain + ':' + location.port + namespace;
+        var socket = io.connect(url);
+        //When connecting to the socket join the room
+        socket.on('connect', function() {socket.emit('join_room');});
+        //When receiving a message
+        socket.on('msg', function(data) {
+                            var msg = JSON.parse(data);
+                            var newLine = $('<li>'+ 'Event type = ' + msg.event_type + ', Order ID = ' + msg.order_id +'</li>');
+                            newLine.css("color","blue");
+                            $("#Messages").append(newLine);
+                          });
+      });
+</script>
+</body>
+</html>
