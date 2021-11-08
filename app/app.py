@@ -1,9 +1,10 @@
 import os
 from flask import Flask, jsonify, request
 from pymongo import MongoClient
-import json
+from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 
 try:
     # connect mongodb with the environment variables
@@ -116,4 +117,4 @@ def update_delivery_status(order_id):
 
 #start flask server
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=15000, debug=True)
+    app.run(host='0.0.0.0', port=15000)
