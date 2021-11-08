@@ -41,7 +41,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./grafana:/var/lib/grafana
+      - grafana_data:/var/lib/grafana
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
   redis:
@@ -55,3 +55,5 @@ networks:
 volumes:
   mongo_volume:
     name: mongo_vol
+  grafana_data:
+    name: grafana_vol
