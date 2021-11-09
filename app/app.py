@@ -57,6 +57,7 @@ def accept_order(order_id):
         else:
             db.order.update_one({'order_id':order_id},{'$set':{'current_state':'accepted'}})
             return jsonify({}), 204
+    return jsonify({"error":"order not found"}), 404
 
 @app.route('/orders/<order_id>/deny_pos_order', methods=['POST'])
 def deny_order(order_id):
@@ -85,6 +86,7 @@ def deny_order(order_id):
         else:
             db.order.update_one({'order_id':order_id},{'$set':{'current_state':'denied'}})
             return jsonify({}), 204
+    return jsonify({"error":"order not found"}), 404
 
 @app.route('/orders/<order_id>/cancel', methods=['POST'])
 def cancel_order(order_id):
@@ -118,6 +120,7 @@ def cancel_order(order_id):
             db.order.update_one({'order_id':order_id},{'$set':{'current_state':'canceled'}})
             send_webhook('cancel', order_id) # send webhook for canceled order
             return jsonify({}), 204
+    return jsonify({"error":"order not found"}), 404
 
 @app.route('/orders/<order_id>/restaurantdelivery/status', methods=['POST'])
 def update_delivery_status(order_id):
@@ -135,6 +138,7 @@ def update_delivery_status(order_id):
             return jsonify({"error":"the format of given data is incorrect"}), 400
         except TypeError:
             return jsonify({"error":"the format of given data is incorrect"}), 400
+    return jsonify({"error":"order not found"}), 404
 
 # for testing webhook when an order has been placed on the EasyEats
 @app.route('/testwebhook/addorder', methods={'GET'})
@@ -159,6 +163,26 @@ def send_webhook(action, order_id):
 
     requests.post(WEBHOOK_LISTENER_URL, data=json.dumps(
         msg, sort_keys=True, default=str), headers={'Content-Type': 'application/json'}, timeout=1.0)
+
+# 404 error handler
+@app.errorhandler(404)
+def not_found(e):
+    return {"error": "not found"}, 404
+
+# 400 error handler
+@app.errorhandler(400)
+def bad_request(e):
+    return {"error": "bad request"}, 400
+
+# 405 error handler
+@app.errorhandler(405)
+def method_not_allowed(e):
+    return {"error": "method not allowed"}, 405
+
+# 500 error handler
+@app.errorhandler(500)
+def internal_server_error(e):
+    return {"error": "internal server error"}, 500
 
 #start flask server
 if __name__ == '__main__':
