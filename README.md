@@ -10,24 +10,53 @@ Access the API from localhost at port 9990 <br />
 ```curl localhost:9990```
 
 ## Order endpoint
-localhost:9990/order/<order_id>
+```[GET]``` localhost:9990/order/<order_id>
 - to see order details
 
-localhost:9990/orders/<order_id>/accept_pos_order
+\
+```[POST]``` localhost:9990/orders/<order_id>/accept_pos_order
 - to accept order
 - must include JSON object with reason value
 
-localhost:9990/orders/<order_id>/deny_pos_order
+Request example:
+```
+{"reason": "accepted"}
+```
+\
+```[POST]``` localhost:9990/orders/<order_id>/deny_pos_order
 - to deny order
 - must include JSON object with reason value and reason code
 
-localhost:9990/orders/<order_id>/cancel
+Request example:
+```
+{
+	"reason": {
+		"explanation":"failed to submit order",
+		"code":"store_closed"
+	}
+}
+```
+\
+```[POST]``` localhost:9990/orders/<order_id>/cancel
 - to cancel order
 - must include JSON object with cancel code and cancelling party
 
-localhost:9990/orders/<order_id>/restaurantdeliverystatus
+Request example:
+```
+{
+	"reason":"cannot_complete_customer_note",
+    "cancelling_party": "merchant"
+}
+```
+\
+```[POST]``` localhost:9990/orders/<order_id>/restaurantdelivery/status
 - to set delivery status
 - must include JSON object with status
+
+Request example:
+```
+{"status": "delivered"}
+```
 
 ## Webhook Notifications
 A webhook will be sent to a webhook listener when an order has been created or canceled.
