@@ -1,0 +1,103 @@
+_format_version: "1.1"
+consumers:
+- custom_id: easyeats
+  jwt_secrets:
+  - algorithm: RS256
+    key: https://sky92i.jp.auth0.com/
+    rsa_public_key: |
+      -----BEGIN PUBLIC KEY-----
+      MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1gTx4lP9ksT1FlotPpcN
+      RzrBxihlJ21wcVwNFqjdHLxNaCRPwYFqaOsp0WdzsP7uNenH3qek58qaCtAkSHa9
+      7KKd1WUIh9ERjlOIzYLL4PiCXFxdLV/XUDebJmXRBXJ5n5KtnbN19hlltbWnbCxi
+      xxjsFjJU3HJMOsynOwGLRtUcv9VEfjQc8QCL0M2IRi/CZAkhit8xT7ZAOOro2hDl
+      x+1BW5G0NJPV0ybbXLqrUp4EcA+LrkytdyQs/iNygP2nEFwo0xcJb4Q0j89mjt3U
+      hrSsLBoKXycnIIA2sp9wT2jz19NHzSFw0QC+kujUI8CTNCI35AkUcUV/jzZTLVL4
+      1wIDAQAB
+      -----END PUBLIC KEY-----
+    secret: GPxIjFFeG8THrO1BsEcdkerlNskw25Q6
+  username: easyeats
+services:
+- connect_timeout: 60000
+  host: orderapi
+  id: 6e2c23c1-d5be-496f-b521-d26365ed3880
+  path: /orders
+  port: 15000
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    name: orderapi
+    path_handling: v0
+    paths:
+    - /orders
+    plugins:
+    - config:
+        anonymous: null
+        claims_to_verify: null
+        cookie_names: []
+        header_names:
+        - authorization
+        key_claim_name: iss
+        maximum_expiration: 0
+        run_on_preflight: true
+        secret_is_base64: false
+        uri_param_names:
+        - jwt
+      enabled: true
+      name: jwt
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+  write_timeout: 60000
+- connect_timeout: 60000
+  host: storeapi
+  id: e8e408f7-1be1-4e33-928d-9d0124fce347
+  path: /stores
+  port: 15000
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    name: storeapi
+    path_handling: v0
+    paths:
+    - /stores
+    plugins:
+    - config:
+        anonymous: null
+        claims_to_verify: null
+        cookie_names: []
+        header_names:
+        - authorization
+        key_claim_name: iss
+        maximum_expiration: 0
+        run_on_preflight: true
+        secret_is_base64: false
+        uri_param_names:
+        - jwt
+      enabled: true
+      name: jwt
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+  write_timeout: 60000

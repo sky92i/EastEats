@@ -1,27 +1,49 @@
 version: "3.3"
 services:
-  mongo:
+  mongoorder:
     image: mongo
-    container_name: db
+    container_name: dborder
     environment:
       MONGO_INITDB_ROOT_USERNAME: comp3122
       MONGO_INITDB_ROOT_PASSWORD: 12345
       MONGO_INITDB_DATABASE: admin
     volumes:
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
-      - mongo_volume:/data/db
-  webapp:
-    build: ./app
-    hostname: webapp
+      - ./mongo-init_order.js:/docker-entrypoint-initdb.d/mongo-init_order.js
+      - mongo_volume_order:/data/db
+  mongostore:
+    image: mongo
+    container_name: dbstore
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: comp3122
+      MONGO_INITDB_ROOT_PASSWORD: 12345
+      MONGO_INITDB_DATABASE: admin
+    volumes:
+      - ./mongo-init_store.js:/docker-entrypoint-initdb.d/mongo-init_store.js
+      - mongo_volume_store:/data/db
+  orderapi:
+    build: ./orderapi
+    hostname: orderapi
     environment:
       MONGO_USERNAME: comp3122
       MONGO_PASSWORD: 12345
-      MONGO_SERVER_HOST: mongo
+      MONGO_SERVER_HOST: mongoorder
       MONGO_DATABASE: admin
     ports:
       - "9990:15000"
     volumes:
-      - "./app:/app"
+      - "./orderapi:/orderapi"
+  storeapi:
+    build: ./storeapi
+    hostname: storeapi
+    environment:
+      MONGO_USERNAME: comp3122
+      MONGO_PASSWORD: 12345
+      MONGO_SERVER_HOST: mongostore
+      MONGO_DATABASE: admin
+    ports:
+      - "9991:15000"
+    volumes:
+      - "./storeapi:/storeapi"
   webhook_listener:
     build: ./webhook_listener
     container_name: webhook_listener
@@ -49,11 +71,36 @@ services:
     container_name: redis
     ports:
       - "6379:6379"
+  kong-ee:
+    image: kong/kong-gateway
+    restart: unless-stopped
+    environment:
+      KONG_DATABASE: "off"
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_LISTEN: 0.0.0.0:8001
+      KONG_ADMIN_GUI_URL: http://localhost:8002
+      KONG_DECLARATIVE_CONFIG: /kongconfig/kong.yaml
+    ports:
+      - "8000:8000"
+      - "8443:8443"
+      - "8001:8001"
+      - "8444:8444"
+      - "8002:8002"
+      - "8445:8445"
+      - "8003:8003"
+      - "8004:8004"
+    volumes:
+      - "./kong.yaml:/kongconfig/kong.yaml"
 networks:
   default:
     name: ee_network
 volumes:
-  mongo_volume:
-    name: mongo_vol
+  mongo_volume_order:
+    name: mongo_vol_order
+  mongo_volume_store:
+    name: mongo_vol_store
   grafana_data:
     name: grafana_vol
