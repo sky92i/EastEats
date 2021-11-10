@@ -10,7 +10,7 @@ Access the API from localhost at port 9990 <br />
 ```curl localhost:9990```
 
 ## Authentication
-The API is secured with [Auto0](https://auth0.com/). To access the API, an access token is required when sending an request.
+The API is secured with [Auth0](https://auth0.com/) with [Kong Gateway](https://docs.konghq.com/enterprise/). To access the API, an access token is required when sending an request.
 \
 \
 Example for getting an access token for the API:
@@ -37,11 +37,11 @@ curl --request GET \
 ```
 
 ## Order endpoint
-```[GET]``` localhost:9990/order/<order_id>
+```[GET]``` localhost:8000/orders/<order_id>
 - to see order details
 
 \
-```[POST]``` localhost:9990/orders/<order_id>/accept_pos_order
+```[POST]``` localhost:8000/orders/<order_id>/accept_pos_order
 - to accept order
 - must include JSON object with reason value
 
@@ -50,7 +50,7 @@ Request example:
 {"reason": "accepted"}
 ```
 \
-```[POST]``` localhost:9990/orders/<order_id>/deny_pos_order
+```[POST]``` localhost:8000/orders/<order_id>/deny_pos_order
 - to deny order
 - must include JSON object with reason value and reason code
 
@@ -64,7 +64,7 @@ Request example:
 }
 ```
 \
-```[POST]``` localhost:9990/orders/<order_id>/cancel
+```[POST]``` localhost:8000/orders/<order_id>/cancel
 - to cancel order
 - must include JSON object with cancel code and cancelling party
 
@@ -76,7 +76,7 @@ Request example:
 }
 ```
 \
-```[POST]``` localhost:9990/orders/<order_id>/restaurantdelivery/status
+```[POST]``` localhost:8000/orders/<order_id>/restaurantdelivery/status
 - to set delivery status
 - must include JSON object with status
 
@@ -110,19 +110,19 @@ Access grafana at:
 with username: admin and password: admin
 
 ## Store endpoint
-```[GET]``` localhost:9990/stores/<store_id>
+```[GET]``` localhost:8000/stores/<store_id>
 - to see store information
 
 \
-```[GET]``` localhost:9990/stores
+```[GET]``` localhost:8000/stores
 - to list all stores
 
 \
-```[GET]``` localhost:9990/store/<store_id>/status
+```[GET]``` localhost:8000/stores/<store_id>/status
 - to see the online status of a restaurant 
 
 \
-```[POST]``` localhost:9990/store/<store_id>/status
+```[POST]``` localhost:8000/stores/<store_id>/status
 - to update the online status of a restaurant 
 - must include JSON object with valid online status value and reason code value. Reason code needs to be valid if status is OFFLINE
 
@@ -135,11 +135,11 @@ Request example:
 ```
 
 \
-```[GET]``` localhost:9990/stores/<store_id>/holiday-hours
+```[GET]``` localhost:8000/stores/<store_id>/holiday-hours
 - to see the holiday hours of a restaurant 
 
 \
-```[POST]``` localhost:9990/stores/<store_id>/holiday-hours
+```[POST]``` localhost:8000/stores/<store_id>/holiday-hours
 - to set the holiday hours of a restaurant
 - must include JSON object with store id that exists in the store collection and holiday dates with opening hours
 - if a store is closed the entire day, set start_time and end_time to 00:00 
@@ -170,11 +170,11 @@ Request example:
 ```
 
 ## Menu endpoint
-```[GET]``` localhost:9990/stores/<store_id>/menus
+```[GET]``` localhost:8000/stores/<store_id>/menus
 - to see the menu of a specific store
 
 \
-```[PUT]``` localhost:9990/stores/<store_id>/menus
+```[PUT]``` localhost:8000/stores/<store_id>/menus
 - to create or override the entire menu of a specific store
 - every item on the menu needs to have an id, a price and an availability 
 
@@ -202,7 +202,7 @@ Request example:
 ```
 
 \
-```[POST]``` localhost:9990/stores/<store_id>/menus/items/<item_id>
+```[POST]``` localhost:8000/stores/<store_id>/menus/items/<item_id>
 - to update information about an existing item on a store's menu
 - will only update a field if it is specified in the request
 
