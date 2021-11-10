@@ -8,3 +8,6 @@ Werkzeug==2.0.1
 python-dotenv==0.19.1
 prometheus-flask-exporter==0.18.4
 requests
+python-jose
+flask-cors
+six
