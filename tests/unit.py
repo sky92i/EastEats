@@ -52,7 +52,7 @@ class TestClass():
         response_body = response.json()
         assert response_body["error"] == 'the format of given data is incorrect'
         
-        response = requests.post("http://localhost:9990/orders/1/accept_pos_order")
+        response = requests.post("http://localhost:9990/orders/1/accept_pos_order", headers=auth)
         assert response.status_code == 400
         response_body = response.json()
         assert response_body["error"] == 'the format of given data is incorrect'
