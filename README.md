@@ -10,7 +10,7 @@ Access the API from localhost at port 9990 <br />
 ```curl localhost:9990```
 
 ## Authentication
-The API is secured with [Auth0](https://auth0.com/) with [Kong Gateway](https://docs.konghq.com/enterprise/). To access the API, an access token is required when sending an request.
+The API is secured with [Auth0](https://auth0.com/) and [Kong Gateway](https://docs.konghq.com/enterprise/). To access the API, an access token is required when sending an request.
 \
 \
 Example for getting an access token for the API:
