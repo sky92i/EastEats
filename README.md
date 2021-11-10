@@ -65,10 +65,10 @@ In this case, a webhook listener is created for testing. The webhook is set to s
 Visit localhost:5001 at browser will start to listen the webhook and the received webhook will be parsed and displayed on the webpage.
 Then, we can visit the following endpoints to send webhook and check the results on localhost:5001. The results should be displayed immediately without refreshing the webpage manually.
 
-/testwebhook/addorder
+localhost:9990/testwebhook/addorder
 - will create a dummy order with order id 888
 
-/testwebhook/cancelorder
+localhost:9990/testwebhook/cancelorder
 - cancel the dummay order with order id 888
 
 ## Logging services
