@@ -8,8 +8,6 @@ https://github.com/polyu21022574x/EasyEats
 
 The app is composed of the following components:
 
-Voting-App: Frontend of the application written in Python, used by users to cast their votes. Each vote cast on the Voting app is stored in the Redis in-memory database.
-
 1. **Katacode:** Katacoda scenario
 
 2. **grafana/provisioning:** Saving the dashboards and datasources
@@ -31,7 +29,6 @@ Voting-App: Frontend of the application written in Python, used by users to cast
 10. **mongo-init_store.js:** mongodb file for store
 
 11. **prometheus.yml:** prometheus file for launching the prometheus services
-
 
 Clone the project from github.
 `git clone https://github.com/polyu21022574x/EasyEats`{{execute}}

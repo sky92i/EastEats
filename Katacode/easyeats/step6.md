@@ -24,9 +24,11 @@ The project uses Prometheus and Grafana for logging.
 
 Access prometheus at:
 `localhost:9090`
+https://2886795296-9090-cykoria04.environments.katacoda.com/
 
 Access grafana at:
 `localhost:3000`
+https://2886795296-3000-cykoria04.environments.katacoda.com/
 with 
 - username: admin 
 - password: admin

@@ -1,11 +1,12 @@
 # Setup the Docker-compose
 
-## To run the code
 Run the project with docker compose
+
 `cd EasyEats`{{execute}}
 `docker-compose up`{{execute}}
 
 Access the API from localhost at port 9990
+
 `curl localhost:9990`{{execute}}
 
 ## Authentication
