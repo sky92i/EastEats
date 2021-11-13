@@ -4,7 +4,5 @@
 
 Visit https://www.katacoda.com/20032979d to view the profile and interactive scenarios
 
-### Writing Scenarios
-Visit https://www.katacoda.com/docs to learn more about creating Katacoda scenarios
-
-For examples, visit https://github.com/katacoda/scenario-example
+### Katacoda Scenarios -- EasyEats
+https://www.katacoda.com/easyeats/scenarios/easyeats
