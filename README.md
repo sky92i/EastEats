@@ -224,3 +224,11 @@ Access prometheus at:
 Access grafana at:
 ``` localhost:3000 ```
 with username: admin and password: admin
+
+## Interactive Katacoda Scenarios
+Visit https://www.katacoda.com/easyeats to view the profile and interactive scenarios
+
+### Katacoda Scenarios -- EasyEats
+To view the katacoda scenario
+https://www.katacoda.com/easyeats/scenarios/easyeats
+
