@@ -7,7 +7,7 @@ Run the project with docker compose <br />
 ```docker-compose up```
 
 Access the API from localhost at port 9990 <br /> 
-```curl localhost:9990```
+```curl localhost:8000```
 
 ## Authentication
 The API is secured with [Auth0](https://auth0.com/) and [Kong Gateway](https://docs.konghq.com/enterprise/). To access the API, an access token is required when sending an request.
