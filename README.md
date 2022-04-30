@@ -1,6 +1,8 @@
 # EasyEats
 Group project for course COMP3122
 
+![image](https://github.com/sky92i/EastEats/blob/main/diagram.png)
+
 ## To run the code
 
 Run the project with docker compose <br /> 
